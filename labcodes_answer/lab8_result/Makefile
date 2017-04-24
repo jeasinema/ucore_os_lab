@@ -65,7 +65,7 @@ MV		:= mv
 RM		:= rm -f
 AWK		:= awk
 SED		:= sed
-SH		:= sh
+SH		:= bash
 TR		:= tr
 TOUCH	:= touch -c
 
@@ -242,7 +242,7 @@ $(call create_target,ucore.img)
 SWAPIMG		:= $(call totarget,swap.img)
 
 $(SWAPIMG):
-	$(V)dd if=/dev/zero of=$@ bs=1M count=128
+	$(V)dd if=/dev/zero of=$@ bs=1$(shell if [ `uname` == "Darwin" ]; then echo "m"; else echo "M"; fi) count=128
 
 $(call create_target,swap.img)
 
@@ -265,7 +265,7 @@ $(SFSROOT):
 	$(V)$(MKDIR) $@
 
 $(SFSIMG): $(SFSROOT) $(SFSBINS) | $(call totarget,mksfs)
-	$(V)dd if=/dev/zero of=$@ bs=1M count=128
+	$(V)dd if=/dev/zero of=$@ bs=1$(shell if [ `uname` == "Darwin" ]; then echo "m"; else echo "M"; fi) count=128
 	@$(call totarget,mksfs) $@ $(SFSROOT)
 
 $(call create_target,sfs.img)

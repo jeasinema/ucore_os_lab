@@ -63,7 +63,7 @@ MV		:= mv
 RM		:= rm -f
 AWK		:= awk
 SED		:= sed
-SH		:= sh
+SH		:= bash
 TR		:= tr
 TOUCH	:= touch -c
 
